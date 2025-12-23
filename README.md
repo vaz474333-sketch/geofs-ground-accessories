@@ -1,11 +1,14 @@
-(function () {
+(function waitForGeoFS() {
 
-    if (!window.geofs || !geofs.api || !geofs.api.rendering) {
-        console.warn("[GeoFS Accessories] GeoFS not ready");
-        return;
+    if (!window.geofs || !geofs.api || !geofs.api.rendering || !geofs.aircraft?.instance) {
+        console.log("[GeoFS Accessories] Waiting for GeoFS...");
+        return setTimeout(waitForGeoFS, 1000);
     }
 
-    const scene = geofs.api.rendering.scene;
+    (function () {
+
+        const scene = geofs.api.rendering.scene;
+
     const Cesium = geofs.api.rendering.Cesium;
 
     console.log("[GeoFS Accessories] Loaded");
@@ -192,5 +195,7 @@
         menu.style.display = menu.style.display === "none" ? "block" : "none";
     };
 
+    })();
 })();
+
 
